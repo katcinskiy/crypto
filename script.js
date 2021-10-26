@@ -1,7 +1,11 @@
-alert("I am oon it")
+alert("I am on it")
 
 
 console.log("I am on it.")
+
+
+const gradient_threshold = 15
+const pause_between_bets = 30 // seconds
 
 
 class Deque {
@@ -67,6 +71,7 @@ class Storage {
 }
 
 const storage = new Storage()
+let last_bet_time = new Date()
 
 function onMessage(mess) {
     let j = JSON.parse(mess.data);
@@ -74,15 +79,19 @@ function onMessage(mess) {
         let value = j.data['p']
         let timestamp = j.data['T']
         storage.add_to_storage(parseFloat(value), timestamp)
-        if (Math.abs(storage.current_gradient) > 10) {
-            if(storage.current_gradient > 0) {
-                $(document).ready(function() {
-                    $("#btnCall").click()
-                });
-            } else {
-                $(document).ready(function() {
-                    $("#btnPut").click()
-                });
+        if (Math.abs(storage.current_gradient) > gradient_threshold) {
+            let current_date = new Date()
+            if (((current_date - last_bet_time) / 1000) > pause_between_bets) {
+                // if(storage.current_gradient > 0) {
+                //     $(document).ready(function() {
+                //         $("#btnCall").click()
+                //     });
+                // } else {
+                //     $(document).ready(function() {
+                //         $("#btnPut").click()
+                //     });
+                // }
+                last_bet_time = current_date
             }
         }
     }
