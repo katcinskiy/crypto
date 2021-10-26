@@ -61,7 +61,7 @@ class Storage {
         while (this.sec_diff(this.deque.peekFront()['timestamp'], timestamp) > this.interval) {
             this.deque.removeFront()
         }
-        this.current_gradient = (this.deque.peekBack()['value'] - this.deque.peekFront()['value']) / this.deque.size
+        this.current_gradient = (this.deque.peekBack()['value'] - this.deque.peekFront()['value']) / this.interval
         console.log("Added: value - " + value + ", timestamp - " + timestamp + ", new gradient - " + this.current_gradient)
     }
 }
@@ -74,7 +74,7 @@ function onMessage(mess) {
         let value = j.data['p']
         let timestamp = j.data['T']
         storage.add_to_storage(parseFloat(value), timestamp)
-        if (Math.abs(storage.current_gradient)  > 0.5) {
+        if (Math.abs(storage.current_gradient) > 10) {
             if(storage.current_gradient > 0) {
                 $(document).ready(function() {
                     $("#btnCall").click()
