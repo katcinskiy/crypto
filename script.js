@@ -4,7 +4,7 @@ alert("I am on it")
 console.log("I am on it.")
 
 
-const gradient_threshold = 10
+const gradient_threshold = 13
 const pause_between_bets = 30 // seconds
 
 
@@ -82,15 +82,15 @@ function onMessage(mess) {
         if (Math.abs(storage.current_gradient) > gradient_threshold) {
             let current_date = new Date()
             if (((current_date - last_bet_time) / 1000) > pause_between_bets) {
-                // if(storage.current_gradient > 0) {
-                //     $(document).ready(function() {
-                //         $("#btnCall").click()
-                //     });
-                // } else {
-                //     $(document).ready(function() {
-                //         $("#btnPut").click()
-                //     });
-                // }
+                if(storage.current_gradient > 0) {
+                    $(document).ready(function() {
+                        $("#btnCall").click()
+                    });
+                } else {
+                    $(document).ready(function() {
+                        $("#btnPut").click()
+                    });
+                }
                 last_bet_time = current_date
             }
         }
