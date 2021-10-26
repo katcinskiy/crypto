@@ -4,7 +4,7 @@ alert("I am on it")
 console.log("I am on it.")
 
 
-const gradient_threshold = 15
+const gradient_threshold = 10
 const pause_between_bets = 30 // seconds
 
 
